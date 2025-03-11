@@ -1,2 +1,39 @@
 2025-03-11 19:01:20,121 - INFO - Connected to the database.
 2025-03-11 19:01:20,150 - INFO - Database initialized successfully.
+2025-03-11 19:02:35,007 - INFO - Connected to the database.
+2025-03-11 19:02:35,008 - INFO - Database initialized successfully.
+2025-03-11 19:02:42,714 - INFO - Connected to the database.
+2025-03-11 19:02:42,715 - INFO - Retrieved all meetings.
+2025-03-11 19:02:46,195 - INFO - Connected to the database.
+2025-03-11 19:02:46,195 - INFO - Retrieved all meetings.
+2025-03-11 19:05:27,433 - INFO - Connected to the database.
+2025-03-11 19:05:27,433 - INFO - Database initialized successfully.
+2025-03-11 19:05:36,317 - INFO - Connected to the database.
+2025-03-11 19:05:36,318 - INFO - Database initialized successfully.
+2025-03-11 19:15:38,226 - INFO - Connected to the database.
+2025-03-11 19:15:38,227 - INFO - Database initialized successfully.
+2025-03-11 19:16:22,390 - INFO - Connected to the database.
+2025-03-11 19:16:22,412 - INFO - Added meeting: 2025-07-30, 21:00, Tech, 0
+2025-03-11 19:16:30,200 - INFO - Connected to the database.
+2025-03-11 19:16:30,201 - INFO - Retrieved all meetings.
+2025-03-11 19:16:33,334 - INFO - Connected to the database.
+2025-03-11 19:16:33,335 - INFO - Retrieved all meetings.
+2025-03-11 19:16:36,151 - INFO - Cleared the result text area.
+2025-03-11 19:16:47,912 - INFO - Connected to the database.
+2025-03-11 19:16:47,914 - INFO - Found 1 meetings matching 'Tech'.
+2025-03-11 19:16:51,995 - INFO - Cleared the result text area.
+2025-03-11 19:59:22,103 - INFO - Connected to the database.
+2025-03-11 19:59:22,104 - INFO - Database initialized successfully.
+2025-03-11 20:00:01,425 - INFO - Connected to the database.
+2025-03-11 20:00:01,426 - INFO - Database initialized successfully.
+2025-03-11 20:00:59,600 - INFO - Connected to the database.
+2025-03-11 20:00:59,624 - INFO - Added meeting: 2025-12-30, 22:00, Event, 0
+2025-03-11 20:01:05,449 - INFO - Connected to the database.
+2025-03-11 20:01:05,449 - INFO - Retrieved all meetings.
+2025-03-11 20:01:12,562 - INFO - Cleared the result text area.
+2025-03-11 20:01:21,015 - INFO - Connected to the database.
+2025-03-11 20:01:21,015 - INFO - Found 1 meetings matching 'Event'.
+2025-03-11 20:01:27,027 - INFO - Cleared the result text area.
+2025-03-11 20:01:55,056 - INFO - Connected to the database.
+2025-03-11 20:01:55,057 - INFO - Retrieved all meetings.
+2025-03-11 20:01:58,731 - INFO - Cleared the result text area.
