@@ -1,0 +1,6 @@
+[DATABASE]
+db_path = database/test_mis.db
+
+[LOGGING]
+log_file = logs/test.log
+log_level = INFO

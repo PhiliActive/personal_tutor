@@ -88,13 +88,6 @@ class MISGUI:
         style.configure("Accent.TButton", font=self.button_font, padding=10, background="#5f295f", foreground="black", borderwidth=5, focusthickness=3, focuscolor='none')  # Black text
         style.configure("TEntry", font=self.label_font, padding=5)
 
-        # Add border radius to buttons
-        style.map("Accent.TButton",
-                  background=[('active', '#4a1f4a')],  # Darker purple on hover
-                  relief=[('pressed', 'sunken'), ('!pressed', 'raised')],
-                  bordercolor=[('active', '#4a1f4a')],
-                  lightcolor=[('active', '#4a1f4a')],
-                  darkcolor=[('active', '#4a1f4a')])
 
     def create_widgets(self):
         """Create and arrange GUI elements."""

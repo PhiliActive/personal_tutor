@@ -46,12 +46,12 @@ def initialize_db():
 
 def validate_date(date):
     """Validate the date format (YYYY-MM-DD)."""
-    date_pattern = re.compile(r"^\d{4}-\d{2}-\d{2}$")
+    date_pattern = re.compile(r"^\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$")
     return bool(date_pattern.match(date))
 
 def validate_time(time):
     """Validate the time format (HH:MM)."""
-    time_pattern = re.compile(r"^\d{2}:\d{2}$")
+    time_pattern = re.compile(r"^([01][0-9]|2[0-3]):[0-5][0-9]$")
     return bool(time_pattern.match(time))
 
 def add_meeting(date, time, topics, referrals=""):

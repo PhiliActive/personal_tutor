@@ -1,15 +1,17 @@
+import os
 import re
 import sqlite3
 from modules.logger import logger
 
 class MeetingManager:
     def __init__(self):
+        self.db_path = os.getenv("DB_PATH", "database/meetings.db")  # Use environment variable or default
         self.initialize_db()  # Ensure the table exists when the class is instantiated
 
     def connect_db(self):
         """Connect to the SQLite database."""
         try:
-            conn = sqlite3.connect("database/meetings.db")  # Update with your database path
+            conn = sqlite3.connect(self.db_path)
             logger.info("Connected to the database.")
             return conn
         except sqlite3.Error as e:
@@ -52,24 +54,22 @@ class MeetingManager:
 
     def add_meeting(self, date, time, topics, referrals=""):
         """Add a new meeting to the database."""
-        # Validate input data
         if not date or not time or not topics:
             return False, "Invalid input: date, time, and topics are required."
-
-        if not MeetingManager.validate_date(date):  # Call the static method directly
+        if not MeetingManager.validate_date(date):
             return False, f"Invalid date format: {date}. Expected format: YYYY-MM-DD."
-
-        if not MeetingManager.validate_time(time):  # Call the static method directly
+        if not MeetingManager.validate_time(time):
             return False, f"Invalid time format: {time}. Expected format: HH:MM."
 
         conn = self.connect_db()
         cursor = conn.cursor()
         try:
-            cursor.execute("""
+            cursor.execute(
+                """
                 INSERT INTO meetings (date, time, topics, referrals)
                 VALUES (?, ?, ?, ?)
-            """, (date, time, topics, referrals))
-            conn.commit()
+                """, (date, time, topics, referrals))
+            conn.commit()  # ✅ Ensure changes are saved
             logger.info(f"Added meeting: {date}, {time}, {topics}, {referrals}")
             return True, "Meeting added successfully!"
         except sqlite3.Error as e:
@@ -85,11 +85,11 @@ class MeetingManager:
         try:
             cursor.execute("SELECT id, date, time, topics, referrals FROM meetings")
             meetings = cursor.fetchall()
-            logger.info("Retrieved all meetings.")
+            logger.info(f"Retrieved {len(meetings)} meetings.")
             return meetings
         except sqlite3.Error as e:
             logger.error(f"Error retrieving meetings: {e}")
-            raise
+            return []  # Return empty list instead of crashing
         finally:
             conn.close()
 
@@ -98,15 +98,16 @@ class MeetingManager:
         conn = self.connect_db()
         cursor = conn.cursor()
         try:
-            cursor.execute("""
+            cursor.execute(
+                """
                 SELECT id, date, time, topics, referrals FROM meetings
                 WHERE topics LIKE ? OR referrals LIKE ?
-            """, (f"%{keyword}%", f"%{keyword}%"))
+                """, (f"%{keyword}%", f"%{keyword}%"))
             meetings = cursor.fetchall()
             logger.info(f"Found {len(meetings)} meetings matching '{keyword}'.")
             return meetings
         except sqlite3.Error as e:
             logger.error(f"Error searching meetings: {e}")
-            raise
+            return []  # Return empty list instead of crashing
         finally:
             conn.close()
