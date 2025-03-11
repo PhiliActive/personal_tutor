@@ -1,113 +1,77 @@
-import os
-import re
+import unittest
 import sqlite3
+import os
+from modules.meeting_manager import MeetingManager
 from modules.logger import logger
 
-class MeetingManager:
-    def __init__(self):
-        self.db_path = os.getenv("DB_PATH", "database/meetings.db")  # Use environment variable or default
-        self.initialize_db()  # Ensure the table exists when the class is instantiated
+# Test database and log file paths
+TEST_DB_FILE = "database/test_meetings.db"
+TEST_LOG_FILE = "logs/test.log"
 
-    def connect_db(self):
-        """Connect to the SQLite database."""
-        try:
-            conn = sqlite3.connect(self.db_path)
-            logger.info("Connected to the database.")
-            return conn
-        except sqlite3.Error as e:
-            logger.error(f"Database connection error: {e}")
-            raise
+class TestMeetingManager(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls):
+        """Set up the test database and log file before running any tests."""
+        # Override the database and log file paths for testing
+        os.environ["DB_PATH"] = TEST_DB_FILE
+        os.environ["LOG_FILE"] = TEST_LOG_FILE
 
-    @staticmethod
-    def validate_date(date):
-        """Validate the date format (YYYY-MM-DD)."""
-        date_pattern = re.compile(r"^\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$")
-        return bool(date_pattern.match(date))
+        # Create directories if they don't exist
+        os.makedirs(os.path.dirname(TEST_DB_FILE), exist_ok=True)
+        os.makedirs(os.path.dirname(TEST_LOG_FILE), exist_ok=True)
 
-    @staticmethod
-    def validate_time(time):
-        """Validate the time format (HH:MM)."""
-        time_pattern = re.compile(r"^([01][0-9]|2[0-3]):[0-5][0-9]$")
-        return bool(time_pattern.match(time))
+        # Initialize the database
+        cls.manager = MeetingManager()
+        cls.manager.connect_db = lambda: sqlite3.connect(TEST_DB_FILE)
+        cls.manager.initialize_db()
 
-    def initialize_db(self):
-        """Initialize the database with the required tables."""
-        conn = self.connect_db()
+    @classmethod
+    def tearDownClass(cls):
+        """Clean up the test database and log file after all tests are done."""
+        if os.path.exists(TEST_DB_FILE):
+            os.remove(TEST_DB_FILE)
+        if os.path.exists(TEST_LOG_FILE):
+            os.remove(TEST_LOG_FILE)
+
+    def setUp(self):
+        """Clear the database before each test."""
+        conn = sqlite3.connect(TEST_DB_FILE)
         cursor = conn.cursor()
-        try:
-            cursor.execute("""
-                CREATE TABLE IF NOT EXISTS meetings (
-                    id INTEGER PRIMARY KEY AUTOINCREMENT,
-                    date TEXT NOT NULL,
-                    time TEXT NOT NULL,
-                    topics TEXT NOT NULL,
-                    referrals TEXT
-                )
-            """)
-            conn.commit()
-            logger.info("Database initialized successfully.")
-        except sqlite3.Error as e:
-            logger.error(f"Error initializing database: {e}")
-            raise
-        finally:
-            conn.close()
+        cursor.execute("DELETE FROM meetings")
+        conn.commit()
+        conn.close()
 
-    def add_meeting(self, date, time, topics, referrals=""):
-        """Add a new meeting to the database."""
-        if not date or not time or not topics:
-            return False, "Invalid input: date, time, and topics are required."
-        if not MeetingManager.validate_date(date):
-            return False, f"Invalid date format: {date}. Expected format: YYYY-MM-DD."
-        if not MeetingManager.validate_time(time):
-            return False, f"Invalid time format: {time}. Expected format: HH:MM."
+    def test_validate_date(self):
+        """Test the date validation function."""
+        self.assertTrue(MeetingManager.validate_date("2023-10-01"), "Valid date should return True")
+        self.assertFalse(MeetingManager.validate_date("2023-13-01"), "Invalid date should return False")
 
-        conn = self.connect_db()
-        cursor = conn.cursor()
-        try:
-            cursor.execute(
-                """
-                INSERT INTO meetings (date, time, topics, referrals)
-                VALUES (?, ?, ?, ?)
-                """, (date, time, topics, referrals))
-            conn.commit()  # ✅ Ensure changes are saved
-            logger.info(f"Added meeting: {date}, {time}, {topics}, {referrals}")
-            return True, "Meeting added successfully!"
-        except sqlite3.Error as e:
-            logger.error(f"Error adding meeting: {e}")
-            return False, f"Failed to add meeting: {e}"
-        finally:
-            conn.close()
+    def test_validate_time(self):
+        """Test the time validation function."""
+        self.assertTrue(MeetingManager.validate_time("14:30"), "Valid time should return True")
+        self.assertFalse(MeetingManager.validate_time("25:00"), "Invalid time format should return False")
 
-    def view_all_meetings(self):
-        """Retrieve all meetings from the database."""
-        conn = self.connect_db()
-        cursor = conn.cursor()
-        try:
-            cursor.execute("SELECT id, date, time, topics, referrals FROM meetings")
-            meetings = cursor.fetchall()
-            logger.info(f"Retrieved {len(meetings)} meetings.")
-            return meetings
-        except sqlite3.Error as e:
-            logger.error(f"Error retrieving meetings: {e}")
-            return []  # Return empty list instead of crashing
-        finally:
-            conn.close()
+    def test_add_meeting(self):
+        """Test adding a meeting to the database."""
+        success, message = self.manager.add_meeting("2023-10-01", "14:30", "Test Topics", "Test Referrals")
+        self.assertTrue(success, "Meeting should be added successfully")
+        self.assertEqual(message, "Meeting added successfully!", "Success message should match")
 
-    def search_meetings(self, keyword):
-        """Search meetings by keyword in topics or referrals."""
-        conn = self.connect_db()
-        cursor = conn.cursor()
-        try:
-            cursor.execute(
-                """
-                SELECT id, date, time, topics, referrals FROM meetings
-                WHERE topics LIKE ? OR referrals LIKE ?
-                """, (f"%{keyword}%", f"%{keyword}%"))
-            meetings = cursor.fetchall()
-            logger.info(f"Found {len(meetings)} meetings matching '{keyword}'.")
-            return meetings
-        except sqlite3.Error as e:
-            logger.error(f"Error searching meetings: {e}")
-            return []  # Return empty list instead of crashing
-        finally:
-            conn.close()
+    def test_view_all_meetings(self):
+        """Test retrieving all meetings from the database."""
+        self.manager.add_meeting("2023-10-01", "14:30", "Test Topics 1")
+        self.manager.add_meeting("2023-10-02", "15:30", "Test Topics 2")
+
+        meetings = self.manager.view_all_meetings()
+        self.assertEqual(len(meetings), 2, "There should be 2 meetings in the database")
+
+    def test_search_meetings(self):
+        """Test searching meetings by keyword."""
+        self.manager.add_meeting("2023-10-01", "14:30", "Test Topics 1", "Referral 1")
+        self.manager.add_meeting("2023-10-02", "15:30", "Test Topics 2", "Referral 2")
+
+        meetings = self.manager.search_meetings("Test Topics 1")
+        self.assertEqual(len(meetings), 1, "There should be 1 meeting matching the keyword")
+
+if __name__ == "__main__":
+    unittest.main()

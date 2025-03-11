@@ -357,3 +357,142 @@
 2025-03-12 00:38:56,318 - INFO - Added meeting: 2023-12-24, 09:00, Closed, 0
 2025-03-12 00:38:58,891 - INFO - Connected to the database.
 2025-03-12 00:38:58,891 - INFO - Retrieved all meetings.
+2025-03-12 00:51:18,884 - INFO - Connected to the database.
+2025-03-12 00:51:18,885 - INFO - Database initialized successfully.
+2025-03-12 00:51:18,886 - INFO - Connected to the database.
+2025-03-12 00:51:18,905 - INFO - Connected to the database.
+2025-03-12 00:51:18,924 - INFO - Added meeting: 2023-10-01, 14:30, Test Topics, Test Referrals
+2025-03-12 00:51:18,925 - INFO - Connected to the database.
+2025-03-12 00:51:18,944 - INFO - Connected to the database.
+2025-03-12 00:51:18,965 - INFO - Added meeting: 2023-10-01, 14:30, Test Topics 1, 
+2025-03-12 00:51:18,966 - INFO - Connected to the database.
+2025-03-12 00:51:18,985 - INFO - Added meeting: 2023-10-02, 15:30, Test Topics 2, 
+2025-03-12 00:51:18,986 - INFO - Connected to the database.
+2025-03-12 00:51:18,987 - INFO - Retrieved all meetings.
+2025-03-12 00:51:18,988 - INFO - Connected to the database.
+2025-03-12 00:51:19,007 - INFO - Connected to the database.
+2025-03-12 00:51:19,031 - INFO - Added meeting: 2023-10-01, 14:30, Test Topics 1, Referral 1
+2025-03-12 00:51:19,032 - INFO - Connected to the database.
+2025-03-12 00:51:19,061 - INFO - Added meeting: 2023-10-02, 15:30, Test Topics 2, Referral 2
+2025-03-12 00:51:19,061 - INFO - Connected to the database.
+2025-03-12 00:51:19,062 - INFO - Found 1 meetings matching 'Test Topics 1'.
+2025-03-12 00:51:19,062 - INFO - Connected to the database.
+2025-03-12 00:51:19,063 - INFO - Found 1 meetings matching 'Referral 2'.
+2025-03-12 00:51:19,063 - INFO - Connected to the database.
+2025-03-12 00:51:19,087 - INFO - Connected to the database.
+2025-03-12 00:51:19,545 - INFO - Connected to the database.
+2025-03-12 00:51:19,546 - INFO - Database initialized successfully.
+2025-03-12 00:51:19,586 - INFO - Database initialized successfully.
+2025-03-12 00:51:19,742 - INFO - Connected to the database.
+2025-03-12 00:51:19,743 - INFO - Database initialized successfully.
+2025-03-12 00:51:19,799 - INFO - Connected to the database.
+2025-03-12 00:51:19,817 - INFO - Added meeting: 2023-10-01, 14:30, Test Topics 1, Test Referrals
+2025-03-12 00:51:23,030 - INFO - Retrieved all meetings.
+2025-03-12 00:51:23,070 - INFO - Added meeting: 2023-10-01, 14:30, Test Topics 1, Referral 1
+2025-03-12 00:51:23,090 - INFO - Added meeting: 2023-10-02, 15:30, Test Topics 2, Referral 2
+2025-03-12 00:51:23,091 - INFO - Connected to the database.
+2025-03-12 00:51:23,091 - INFO - Retrieved all meetings.
+2025-03-12 00:52:04,916 - INFO - Connected to the database.
+2025-03-12 00:52:04,917 - INFO - Database initialized successfully.
+2025-03-12 00:52:04,917 - INFO - Connected to the database.
+2025-03-12 00:52:04,936 - INFO - Connected to the database.
+2025-03-12 00:52:04,955 - INFO - Added meeting: 2023-10-01, 14:30, Test Topics, Test Referrals
+2025-03-12 00:52:04,956 - INFO - Connected to the database.
+2025-03-12 00:52:04,974 - INFO - Connected to the database.
+2025-03-12 00:52:04,993 - INFO - Added meeting: 2023-10-01, 14:30, Test Topics 1, 
+2025-03-12 00:52:04,994 - INFO - Connected to the database.
+2025-03-12 00:52:05,012 - INFO - Added meeting: 2023-10-02, 15:30, Test Topics 2, 
+2025-03-12 00:52:05,013 - INFO - Connected to the database.
+2025-03-12 00:52:05,013 - INFO - Retrieved all meetings.
+2025-03-12 00:52:05,014 - INFO - Connected to the database.
+2025-03-12 00:52:05,035 - INFO - Connected to the database.
+2025-03-12 00:52:05,056 - INFO - Added meeting: 2023-10-01, 14:30, Test Topics 1, Referral 1
+2025-03-12 00:52:05,057 - INFO - Connected to the database.
+2025-03-12 00:52:05,078 - INFO - Added meeting: 2023-10-02, 15:30, Test Topics 2, Referral 2
+2025-03-12 00:52:05,079 - INFO - Connected to the database.
+2025-03-12 00:52:05,079 - INFO - Found 1 meetings matching 'Test Topics 1'.
+2025-03-12 00:52:05,080 - INFO - Connected to the database.
+2025-03-12 00:52:05,080 - INFO - Found 1 meetings matching 'Referral 2'.
+2025-03-12 00:52:05,081 - INFO - Connected to the database.
+2025-03-12 00:52:05,100 - INFO - Connected to the database.
+2025-03-12 00:52:55,217 - INFO - Connected to the database.
+2025-03-12 00:52:55,218 - INFO - Database initialized successfully.
+2025-03-12 00:52:55,266 - INFO - Database initialized successfully.
+2025-03-12 00:52:55,397 - INFO - Connected to the database.
+2025-03-12 00:52:55,398 - INFO - Database initialized successfully.
+2025-03-12 00:52:55,450 - INFO - Connected to the database.
+2025-03-12 00:52:55,468 - INFO - Added meeting: 2023-10-01, 14:30, Test Topics 1, Test Referrals
+2025-03-12 00:52:59,581 - INFO - Retrieved all meetings.
+2025-03-12 00:52:59,635 - INFO - Added meeting: 2023-10-01, 14:30, Test Topics 1, Referral 1
+2025-03-12 00:52:59,655 - INFO - Added meeting: 2023-10-02, 15:30, Test Topics 2, Referral 2
+2025-03-12 00:52:59,656 - INFO - Connected to the database.
+2025-03-12 00:52:59,657 - INFO - Retrieved all meetings.
+2025-03-12 00:54:26,319 - INFO - This is a test log message.
+2025-03-12 00:54:37,189 - INFO - Connected to the database.
+2025-03-12 00:54:37,204 - INFO - Database initialized successfully.
+2025-03-12 00:54:37,205 - INFO - Connected to the database.
+2025-03-12 00:54:37,225 - INFO - Connected to the database.
+2025-03-12 00:54:37,244 - INFO - Added meeting: 2023-10-01, 14:30, Test Topics, Test Referrals
+2025-03-12 00:54:37,245 - INFO - Connected to the database.
+2025-03-12 00:54:37,268 - INFO - Connected to the database.
+2025-03-12 00:54:37,293 - INFO - Added meeting: 2023-10-01, 14:30, Test Topics 1, 
+2025-03-12 00:54:37,293 - INFO - Connected to the database.
+2025-03-12 00:54:37,328 - INFO - Added meeting: 2023-10-02, 15:30, Test Topics 2, 
+2025-03-12 00:54:37,329 - INFO - Connected to the database.
+2025-03-12 00:54:37,330 - INFO - Retrieved all meetings.
+2025-03-12 00:54:37,331 - INFO - Connected to the database.
+2025-03-12 00:54:37,353 - INFO - Connected to the database.
+2025-03-12 00:54:37,387 - INFO - Added meeting: 2023-10-01, 14:30, Test Topics 1, Referral 1
+2025-03-12 00:54:37,388 - INFO - Connected to the database.
+2025-03-12 00:54:37,423 - INFO - Added meeting: 2023-10-02, 15:30, Test Topics 2, Referral 2
+2025-03-12 00:54:37,424 - INFO - Connected to the database.
+2025-03-12 00:54:37,424 - INFO - Found 1 meetings matching 'Test Topics 1'.
+2025-03-12 00:54:37,425 - INFO - Connected to the database.
+2025-03-12 00:54:37,425 - INFO - Found 1 meetings matching 'Referral 2'.
+2025-03-12 00:54:37,426 - INFO - Connected to the database.
+2025-03-12 00:54:37,457 - INFO - Connected to the database.
+2025-03-12 00:54:37,905 - INFO - This is a test log message.
+2025-03-12 00:55:23,113 - INFO - Connected to the database.
+2025-03-12 00:55:23,114 - INFO - Database initialized successfully.
+2025-03-12 00:55:23,145 - INFO - Database initialized successfully.
+2025-03-12 00:55:23,187 - INFO - Added meeting: 2023-10-01, 14:30, Test Topics, Test Referrals
+2025-03-12 00:55:23,231 - INFO - Added meeting: 2023-10-01, 14:30, Test Topics 1, Referral 1
+2025-03-12 00:55:23,251 - INFO - Added meeting: 2023-10-02, 15:30, Test Topics 2, Referral 2
+2025-03-12 00:55:23,252 - INFO - Found 1 meetings matching 'Test Topics 1'.
+2025-03-12 00:55:23,342 - INFO - Added meeting: 2023-10-01, 14:30, Test Topics 1, 
+2025-03-12 00:55:23,366 - INFO - Added meeting: 2023-10-02, 15:30, Test Topics 2, 
+2025-03-12 00:55:23,367 - INFO - Retrieved all meetings.
+2025-03-12 00:55:28,856 - INFO - Connected to the database.
+2025-03-12 00:55:28,857 - INFO - Database initialized successfully.
+2025-03-12 00:55:28,857 - INFO - Connected to the database.
+2025-03-12 00:55:28,903 - INFO - Connected to the database.
+2025-03-12 00:55:28,952 - INFO - Added meeting: 2023-10-01, 14:30, Test Topics, Test Referrals
+2025-03-12 00:55:28,954 - INFO - Connected to the database.
+2025-03-12 00:55:29,011 - INFO - Connected to the database.
+2025-03-12 00:55:29,065 - INFO - Added meeting: 2023-10-01, 14:30, Test Topics 1, 
+2025-03-12 00:55:29,066 - INFO - Connected to the database.
+2025-03-12 00:55:29,121 - INFO - Added meeting: 2023-10-02, 15:30, Test Topics 2, 
+2025-03-12 00:55:29,122 - INFO - Connected to the database.
+2025-03-12 00:55:29,122 - INFO - Retrieved all meetings.
+2025-03-12 00:55:29,123 - INFO - Connected to the database.
+2025-03-12 00:55:29,167 - INFO - Connected to the database.
+2025-03-12 00:55:29,208 - INFO - Added meeting: 2023-10-01, 14:30, Test Topics 1, Referral 1
+2025-03-12 00:55:29,209 - INFO - Connected to the database.
+2025-03-12 00:55:29,260 - INFO - Added meeting: 2023-10-02, 15:30, Test Topics 2, Referral 2
+2025-03-12 00:55:29,261 - INFO - Connected to the database.
+2025-03-12 00:55:29,262 - INFO - Found 1 meetings matching 'Test Topics 1'.
+2025-03-12 00:55:29,262 - INFO - Connected to the database.
+2025-03-12 00:55:29,263 - INFO - Found 1 meetings matching 'Referral 2'.
+2025-03-12 00:55:29,263 - INFO - Connected to the database.
+2025-03-12 00:55:29,361 - INFO - Connected to the database.
+2025-03-12 00:55:29,712 - INFO - Connected to the database.
+2025-03-12 00:55:29,713 - INFO - Database initialized successfully.
+2025-03-12 00:55:29,781 - INFO - Database initialized successfully.
+2025-03-12 00:55:29,860 - INFO - Added meeting: 2023-10-01, 14:30, Test Topics, Test Referrals
+2025-03-12 00:55:29,952 - INFO - Added meeting: 2023-10-01, 14:30, Test Topics 1, Referral 1
+2025-03-12 00:55:30,001 - INFO - Added meeting: 2023-10-02, 15:30, Test Topics 2, Referral 2
+2025-03-12 00:55:30,003 - INFO - Found 1 meetings matching 'Test Topics 1'.
+2025-03-12 00:55:30,190 - INFO - Added meeting: 2023-10-01, 14:30, Test Topics 1, 
+2025-03-12 00:55:30,242 - INFO - Added meeting: 2023-10-02, 15:30, Test Topics 2, 
+2025-03-12 00:55:30,243 - INFO - Retrieved all meetings.
+2025-03-12 00:55:30,486 - INFO - This is a test log message.

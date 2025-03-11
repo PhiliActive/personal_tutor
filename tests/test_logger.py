@@ -1,79 +1,63 @@
 import unittest
 import os
-import time
-import sqlite3
-import tkinter as tk
-from modules.gui import MISGUI
-from modules.meeting_manager import MeetingManager
+import logging
+import importlib
 from modules.logger import logger
 
-# Test database and log file paths
-TEST_DB_FILE = "database/test_meetings.db"
+# Test log file path
 TEST_LOG_FILE = "logs/test.log"
 
-class TestMISGUI(unittest.TestCase):
+class TestLogger(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
-        """Set up the test database and log file before running any tests."""
-        os.makedirs(os.path.dirname(TEST_DB_FILE), exist_ok=True)
+        """Set up the test log file before running any tests."""
         os.makedirs(os.path.dirname(TEST_LOG_FILE), exist_ok=True)
+        
+        # Ensure the log file exists before testing
+        with open(TEST_LOG_FILE, "w") as f:
+            f.write("")  # Create an empty log file
+        
+        # Reload logger module to ensure fresh configuration
+        import modules.logger
+        importlib.reload(modules.logger)
+        from modules.logger import logger
+        cls.logger = logger
+        
+        # Clear existing handlers and reconfigure logging
+        cls.logger.handlers.clear()
 
-        # Initialize the database
-        cls.manager = MeetingManager()
-        cls.manager.connect_db = lambda: sqlite3.connect(TEST_DB_FILE)
-        cls.manager.initialize_db()
-
-        # Initialize the Tkinter root window
-        cls.root = tk.Tk()
-        cls.gui = MISGUI(cls.root)
+        # Create a file handler manually and attach it
+        file_handler = logging.FileHandler(TEST_LOG_FILE)
+        file_handler.setFormatter(logging.Formatter("%(asctime)s - %(levelname)s - %(message)s"))
+        
+        cls.logger.addHandler(file_handler)
+        cls.logger.setLevel(logging.INFO)
 
     @classmethod
     def tearDownClass(cls):
-        """Clean up the test database and log file after all tests are done."""
-        if os.path.exists(TEST_DB_FILE):
-            os.remove(TEST_DB_FILE)
+        """Clean up the test log file after all tests are done."""
+        # Close all handlers before deleting the log file
+        for handler in cls.logger.handlers[:]:
+            handler.close()
+            cls.logger.removeHandler(handler)
+        
         if os.path.exists(TEST_LOG_FILE):
             os.remove(TEST_LOG_FILE)
 
-    def setUp(self):
-        """Clear the database before each test."""
-        conn = sqlite3.connect(TEST_DB_FILE)
-        cursor = conn.cursor()
-        cursor.execute("DELETE FROM meetings")  # Clear existing data
-        cursor.execute("DELETE FROM sqlite_sequence WHERE name='meetings'")  # Reset auto-increment IDs
-        conn.commit()
-        conn.close()
+    def test_logger_initialization(self):
+        """Test if the logger is initialized correctly."""
+        self.assertIsNotNone(self.logger, "Logger should be initialized")
+        self.assertEqual(self.logger.getEffectiveLevel(), logging.INFO, "Logger level should be INFO")
 
-    def test_add_meeting(self):
-        """Test adding a meeting through the GUI."""
-        self.gui.date_entry.insert(0, "2023-10-01")
-        self.gui.time_entry.insert(0, "14:30")
-        self.gui.topics_entry.insert(0, "Test Topics 1")
-        self.gui.referrals_entry.insert(0, "Test Referrals")
+    def test_logger_output(self):
+        """Test if the logger writes to the log file."""
+        test_message = "This is a test log message."
+        self.logger.info(test_message)
 
-        self.gui.add_meeting()
-        time.sleep(0.5)  # Ensure database update propagates
-
-        # Fetch meetings from the database
-        meetings = self.manager.view_all_meetings()
-        print("Meetings in DB after add_meeting:", meetings)  # Debugging output
-
-        self.assertEqual(len(meetings), 1, "There should be 1 meeting in the database")
-        self.assertEqual(meetings[0][3], "Test Topics 1", "Meeting topic should match")
-
-    def test_view_all_meetings(self):
-        """Test viewing all meetings through the GUI."""
-        self.manager.add_meeting("2023-10-01", "14:30", "Test Topics 1", "Referral 1")
-        self.manager.add_meeting("2023-10-02", "15:30", "Test Topics 2", "Referral 2")
-
-        self.gui.view_all_meetings()
-
-        # Verify the result text area contains the meetings
-        result_text = self.gui.result_text.get(1.0, tk.END)
-        print("Result text:", repr(result_text))  # Debugging output
-
-        self.assertIn("Test Topics 1", result_text, "Result text should contain 'Test Topics 1'")
-        self.assertIn("Test Topics 2", result_text, "Result text should contain 'Test Topics 2'")
+        # Verify the log file contains the test message
+        with open(TEST_LOG_FILE, "r") as log_file:
+            log_content = log_file.read()
+            self.assertIn(test_message, log_content, "Log file should contain the test message")
 
 if __name__ == "__main__":
     unittest.main()
