@@ -97,20 +97,20 @@ def get_all_meetings():
     finally:
         conn.close()
 
-    def search_meetings(keyword):
-        """Search meetings by keyword in topics or referrals."""
-        conn = connect_db()
-        cursor = conn.cursor()
-        try:
-            cursor.execute("""
-                SELECT id, date, time, topics, referrals FROM meetings
-                WHERE topics LIKE ? OR referrals LIKE ?
-            """, (f"%{keyword}%", f"%{keyword}%"))
-            meetings = cursor.fetchall()
-            logger.info(f"Found {len(meetings)} meetings matching '{keyword}'.")
-            return meetings
-        except sqlite3.Error as e:
-            logger.error(f"Error searching meetings: {e}")
-            raise
-        finally:
-            conn.close()
+def search_meetings(keyword):
+    """Search meetings by keyword in topics or referrals."""
+    conn = connect_db()
+    cursor = conn.cursor()
+    try:
+        cursor.execute("""
+            SELECT id, date, time, topics, referrals FROM meetings
+            WHERE topics LIKE ? OR referrals LIKE ?
+        """, (f"%{keyword}%", f"%{keyword}%"))
+        meetings = cursor.fetchall()
+        logger.info(f"Found {len(meetings)} meetings matching '{keyword}'.")
+        return meetings
+    except sqlite3.Error as e:
+        logger.error(f"Error searching meetings: {e}")
+        raise
+    finally:
+        conn.close()
