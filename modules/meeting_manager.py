@@ -6,6 +6,16 @@ class MeetingManager:
     def __init__(self):
         self.initialize_db()  # Ensure the table exists when the class is instantiated
 
+    def connect_db(self):
+        """Connect to the SQLite database."""
+        try:
+            conn = sqlite3.connect("database/meetings.db")  # Update with your database path
+            logger.info("Connected to the database.")
+            return conn
+        except sqlite3.Error as e:
+            logger.error(f"Database connection error: {e}")
+            raise
+
     # validate the date format
     @staticmethod
     def validate_date(date):
@@ -83,6 +93,25 @@ class MeetingManager:
             return meetings
         except sqlite3.Error as e:
             logger.error(f"Error retrieving meetings: {e}")
+            raise
+        finally:
+            conn.close()
+
+    # function to search a specific meeting from the db
+    def search_meetings(self, keyword):
+        """Search meetings by keyword in topics or referrals."""
+        conn = self.connect_db()
+        cursor = conn.cursor()
+        try:
+            cursor.execute("""
+                SELECT id, date, time, topics, referrals FROM meetings
+                WHERE topics LIKE ? OR referrals LIKE ?
+            """, (f"%{keyword}%", f"%{keyword}%"))
+            meetings = cursor.fetchall()
+            logger.info(f"Found {len(meetings)} meetings matching '{keyword}'.")
+            return meetings
+        except sqlite3.Error as e:
+            logger.error(f"Error searching meetings: {e}")
             raise
         finally:
             conn.close()
