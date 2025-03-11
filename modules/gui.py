@@ -8,8 +8,9 @@ class MISGUI:
     def __init__(self, root):
         self.root = root
         self.root.title("Personal Tutor Meeting Tracker")
-        self.root.geometry("800x600")  # Adjusted window size
+        self.root.geometry("800x700")  # Adjusted window size
         self.root.configure(bg="#F5F5F5")  # Light background
+        self.root.overrideredirect(True)  # Remove default title bar
 
         # Initialize MeetingManager
         self.meeting_manager = MeetingManager()
@@ -17,7 +18,10 @@ class MISGUI:
         # Custom fonts
         self.title_font = Font(family="Helvetica", size=18, weight="bold")
         self.label_font = Font(family="Helvetica", size=12)
-        self.button_font = Font(family="Helvetica", size=10)  # Smaller font for buttons
+        self.button_font = Font(family="Helvetica", size=10, weight="bold")
+
+        # Create custom title bar
+        self.create_custom_title_bar()
 
         # Create styles
         self.create_styles()
@@ -25,29 +29,78 @@ class MISGUI:
         # Create GUI elements
         self.create_widgets()
 
+    def create_custom_title_bar(self):
+        """Create a custom title bar with #5f295f background."""
+        # Title bar frame
+        title_bar = tk.Frame(self.root, bg="#5f295f", relief="raised", bd=0)
+        title_bar.pack(fill=tk.X)
+
+        # Title label
+        title_label = tk.Label(
+            title_bar,
+            text="Personal Tutor Meeting Tracker",
+            font=self.title_font,
+            fg="white",  # White text
+            bg="#5f295f"  # Deep purple background
+        )
+        title_label.pack(side=tk.LEFT, padx=10, pady=5)
+
+        # Close button
+        close_button = tk.Button(
+            title_bar,
+            text="×",
+            font=self.title_font,
+            fg="black",  # Black text
+            bg="#5f295f",
+            bd=0,
+            command=self.root.destroy  # Close the application
+        )
+        close_button.pack(side=tk.RIGHT, padx=10, pady=5)
+
+        # Bind mouse events to allow dragging the window
+        title_bar.bind("<ButtonPress-1>", self.start_move)
+        title_bar.bind("<ButtonRelease-1>", self.stop_move)
+        title_bar.bind("<B1-Motion>", self.on_move)
+
+    def start_move(self, event):
+        """Start moving the window."""
+        self.x = event.x
+        self.y = event.y
+
+    def stop_move(self, event):
+        """Stop moving the window."""
+        self.x = None
+        self.y = None
+
+    def on_move(self, event):
+        """Move the window."""
+        deltax = event.x - self.x
+        deltay = event.y - self.y
+        x = self.root.winfo_x() + deltax
+        y = self.root.winfo_y() + deltay
+        self.root.geometry(f"+{x}+{y}")
+
     def create_styles(self):
         """Creates custom styles for widgets."""
         style = ttk.Style()
         style.configure("TLabel", foreground="black", background="#F5F5F5", font=self.label_font)
-        style.configure("TButton", font=self.button_font, padding=5, background="#4CAF50", foreground="black")
-        style.configure("Accent.TButton", font=self.button_font, padding=5, background="#5f295f", foreground="black", borderwidth=5, focusthickness=3, focuscolor='none')
+        style.configure("TButton", font=self.button_font, padding=10, background="#5f295f", foreground="black")  # Black text
+        style.configure("Accent.TButton", font=self.button_font, padding=10, background="#5f295f", foreground="black", borderwidth=5, focusthickness=3, focuscolor='none')  # Black text
         style.configure("TEntry", font=self.label_font, padding=5)
+
+        # Add border radius to buttons
+        style.map("Accent.TButton",
+                  background=[('active', '#4a1f4a')],  # Darker purple on hover
+                  relief=[('pressed', 'sunken'), ('!pressed', 'raised')],
+                  bordercolor=[('active', '#4a1f4a')],
+                  lightcolor=[('active', '#4a1f4a')],
+                  darkcolor=[('active', '#4a1f4a')])
 
     def create_widgets(self):
         """Create and arrange GUI elements."""
-        # Main frame
+        # Main frame for the content
         main_frame = ttk.Frame(self.root, padding=20)
         main_frame.pack(fill=tk.BOTH, expand=True)
-
-        # Title label
-        title_label = ttk.Label(
-            main_frame,
-            text="Personal Tutor Meeting Tracker",
-            font=self.title_font,
-            foreground="black",  # Black text for contrast
-            background="#F5F5F5"
-        )
-        title_label.pack(pady=20)
 
         # Add meeting frame (using grid for column layout)
         add_frame = ttk.Frame(main_frame)
@@ -76,7 +129,7 @@ class MISGUI:
         self.referrals_entry = ttk.Entry(add_frame, font=self.label_font, style="TEntry")
         self.referrals_entry.grid(row=3, column=1, padx=5, pady=5, sticky="ew")  # Expand horizontally
 
-        # Add meeting button (smaller size, resizable)
+        # Add meeting button (styled with #5f295f and black text)
         add_button = ttk.Button(
             add_frame,
             text="Add Meeting",
@@ -92,7 +145,7 @@ class MISGUI:
         # Configure grid weights for resizing
         view_frame.grid_columnconfigure(1, weight=1)  # Make the search entry expandable
 
-        # View all button
+        # View all button (styled with #5f295f and black text)
         view_button = ttk.Button(
             view_frame,
             text="View All Meetings",
@@ -105,7 +158,7 @@ class MISGUI:
         self.search_entry = ttk.Entry(view_frame, font=self.label_font, style="TEntry")
         self.search_entry.grid(row=0, column=1, padx=5, pady=5, sticky="ew")  # Expand horizontally
 
-        # Search button
+        # Search button (styled with #5f295f and black text)
         search_button = ttk.Button(
             view_frame,
             text="Search",
@@ -114,7 +167,7 @@ class MISGUI:
         )
         search_button.grid(row=0, column=2, padx=5, pady=5, sticky="ew")  # Expand horizontally
 
-        # Clear button
+        # Clear button (styled with #5f295f and black text)
         clear_button = ttk.Button(
             view_frame,
             text="Clear",
